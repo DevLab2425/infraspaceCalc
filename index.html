@@ -52,6 +52,16 @@
       background: #1b2327;
       color: #F7F8F8;
     }
+
+    #building_calculation,
+    #rate_calculation {
+      display: none;
+    }
+
+    #building_calculation.active,
+    #rate_calculation.active{
+      display: block;
+    }
   </style>
   <title>Infraspace Calculator</title>
 </head>
@@ -87,7 +97,8 @@
 
   <br />
 
-  <div id="building_calculation" style="display:none;">
+  <div id="building_calculation">
+    <h2>Building Support Calculator</h2>
     <table class="styled-table">
       <thead>
         <tr>
@@ -99,7 +110,7 @@
       <tbody>
         <tr>
           <td>
-            <select id="building"></select>
+            <select id="buildings"></select>
           </td>
           <td>
             <input type="text" id="building_amount" pattern="\d+" value="1" style="width:80px" />
@@ -122,79 +133,67 @@
     </table>
   </div>
 
-  <div id="rate_calculation" style="display:inline;">
-    <table class="styled-table">
-      <thead>
-        <tr>
-          <th>Resource</th>
-          <th>Amount</th>
-          <th>Time frame</th>
-          <th>Requirements</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <select id="resource"></select>
-          </td>
-          <td>
-            <input type="text" id="rate_amount" pattern="\d+\.?\d*" value="1" style="width:80px" />
-          </td>
-          <td>
-            <select id="time_frame">
-              <option>per second</option>
-              <option>per minute</option>
-            </select>
-          </td>
-          <td>
-            <button id="calc_rate">Calculate</button>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="4">
-            <div id="rate_message">
-          </td>
-        </tr>
-        <tr>
-          <td colspan="4">
-            <table id="rate_results"></table>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <div id="rate_calculation" class="active">
+    <h2>Production Rate Calculator</h2>
+    <form id="rate_form">
+
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Resource</th>
+            <th>Amount</th>
+            <th>Time frame</th>
+            <th>Requirements</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <select id="resources"></select>
+            </td>
+            <td>
+              <input type="text" id="rate_amount" pattern="\d+\.?\d*" value="1" style="width:80px" />
+            </td>
+            <td>
+              <select id="time_frame">
+                <option>per second</option>
+                <option>per minute</option>
+              </select>
+            </td>
+            <td>
+              <button type="submit" id="calc_rate">Calculate</button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <div id="rate_message">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <table id="rate_results"></table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  <script src="./script.js"></script>
   <script lang="javascript">
 
-    var resourcesSelect = document.getElementById("resource");
-    var buildingsSelect = document.getElementById("building");
+    var resourcesSelect = document.getElementById("resources");
+    var buildingsSelect = document.getElementById("buildings");
 
-    window.addEventListener('load', (event) => {
+    window.addEventListener('load', async (event) => {
+      // console.log('window loaded', window.buildings);
 
-      for (const res of Object.keys(dataResources).sort()) {
-        var opt = document.createElement("option");
-        opt.text = dataResources[res];
-        opt.value = res;
-        resourcesSelect.options.add(opt);
-      }
+      // document.getElementById("rate_amount").addEventListener("keypress", event => handleKeyPress(event));
+      // document.getElementById("building_amount").addEventListener("keypress", event => handleKeyPress(event));
 
-      for (const build of Object.keys(data).sort()) {
-        var opt = document.createElement("option");
-        opt.text = data[build].building;
-        opt.value = build;
-        buildingsSelect.options.add(opt);
+      // document.getElementById("calc_rate").addEventListener("click", calculateResourceRate);
+      // document.getElementById("calc_building").addEventListener("click", calculateBuildingRequirements);
 
-        data[build].rate = data[build].output_val / data[build].time;
-      }
-
-      document.getElementsByName("mode").forEach(e => e.addEventListener("change", toggleMode));
-
-      document.getElementById("rate_amount").addEventListener("keypress", event => handleKeyPress(event));
-      document.getElementById("building_amount").addEventListener("keypress", event => handleKeyPress(event));
-
-      document.getElementById("calc_rate").addEventListener("click", calculateResourceRate);
-      document.getElementById("calc_building").addEventListener("click", calculateBuildingRequirements);
-
-      document.getElementById("rate_amount").focus();
+      // document.getElementById("rate_amount").focus();
     });
 
     let time_frame = [1, 60];
@@ -208,23 +207,6 @@
         } else {
           document.getElementById("calc_building").click();
         }
-      }
-    }
-
-    function toggleMode() {
-      var modes = document.getElementsByName("mode")
-
-      var rateTable = document.getElementById("rate_calculation");
-      var productionTable = document.getElementById("building_calculation");
-
-      if (modes[0].checked) {
-        rateTable.style.display = "inline";
-        productionTable.style.display = "none";
-        document.getElementById("rate_amount").focus();
-      } else {
-        productionTable.style.display = "inline";
-        rateTable.style.display = "none";
-        document.getElementById("building_amount").focus();
       }
     }
 
