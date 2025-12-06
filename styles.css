@@ -1,0 +1,76 @@
+
+html *{
+  --textColor: #F7F8F8;
+  --backgroundColor: #1b2327;
+  --tableHeaderColor: #0d1b42;
+  --tableRowEvenColor: #2e6c96;
+  --tableRowOddColor: #748ea0;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', sans-serif;
+}
+
+body {
+  background: var(--backgroundColor);
+  color: var(--textColor);
+}
+
+header h1 {
+  text-align: center;
+}
+
+input:invalid {
+  border: 2px dashed red;
+}
+
+input:valid {
+  border: 2px solid black;
+}
+
+#building_calculation,
+#rate_calculation {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+} 
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+  > thead {
+    > tr {
+      background-color: var(--tableHeaderColor);
+      color: var(--textColor);
+      text-align: left;
+    }
+  }
+
+  > tbody {
+    > tr {
+      border-bottom: 1px solid #dddddd;
+    }
+
+    > tr:nth-of-type(even) {
+      background-color: var(--tableRowEvenColor)
+    }
+
+    > tr:nth-of-type(odd) {
+      background-color: var(--tableRowOddColor)
+    }
+
+    > tr:last-of-type {
+      border-bottom: 2px solid #0f292e;
+    }
+  }
+
+  th, 
+  td {
+    padding: 12px 15px;
+  }
+}
+

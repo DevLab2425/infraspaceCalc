@@ -51,5 +51,15 @@
   "plastic": "plasticFactory",
   "sensor": "sensorFactory",
   "heatExchanger": "heatExchangerFactory",
-  "enrichedUranium": "enrichedUraniumFactory"
+  "enrichedUranium": "enrichedUraniumFactory",
+  "hydraulicFluid": "hydraulicFluidFactory",
+  "metalMatrix": "metalMatrixCompositeFactory",
+  "titanium": "titaniumManufacturingFacility",
+  "heavyOil": "heavyOilExtractor",
+  "magnetite": "magnetiteMine",
+  "ilmenite": "ilmeniteMine",
+  "upgradePack1": "upgradePack1Factory",
+  "upgradePack2": "upgradePack2Factory",
+  "upgradePack3": "upgradePack3Factory",
+  "upgradePack4": "upgradePack4Factory"
 }

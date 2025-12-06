@@ -37,6 +37,7 @@
   "sciencePack1": "Science Pack1",
   "chemicals": "Chemicals",
   "sciencePack2": "Science Pack2",
+  "organicWaste": "Organic Waste",
   "sciencePack3": "Science Pack3",
   "sciencePack4": "Science Pack4",
   "oxygen": "Oxygen",
@@ -51,5 +52,15 @@
   "adamantine": "Adamantine",
   "filteringMesh": "Filtering Mesh",
   "advancedFilteringMesh": "Advanced Filtering Mesh",
-  "superconductingCoil": "Superconducting Coil"
+  "superconductingCoil": "Superconducting Coil",
+  "heavyOil": "Heavy Oil",
+  "hydraulicFluid": "Hydraulic Fluid",
+  "metalMatrix": "Metal Matrix",
+  "ilmenite": "Ilmenite",
+  "magnetite": "Magnetite",
+  "titanium": "Titanium",
+  "upgradePack1": "Upgrade Pack1",
+  "upgradePack2": "Upgrade Pack2",
+  "upgradePack3": "Upgrade Pack3",
+  "upgradePack4": "Upgrade Pack4"
 }
