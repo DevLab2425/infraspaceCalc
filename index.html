@@ -1,120 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <title>Infraspace Calculator</title>
-  <link href="./styles.css" rel="stylesheet">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title>Infraspace Calculator</title>
+    <link href="./styles.css" rel="stylesheet">
+  </head>
 
-<body>
-  <h1>Infraspace Calculator</h1>
+  <body>
+    <header>
+      <h1>Infraspace Calculator</h1>
+    </header>
 
-  <hr />
+    <div id="mode_selection">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Mode of Calculation</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Production Rate - how to achieve a base production rate of X per minute/second</td>
+            <td>
+              <input type="radio" name="mode" value="rate" checked />
+            </td>
+            </td>
+          </tr>
+          <tr>
+            <td>Building Support - how many buildings are required to support X of given building</td>
+            <td>
+              <input type="radio" name="mode" value="building" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr />
 
-  <table class="styled-table">
-    <thead>
-      <tr>
-        <th>Mode of Calculation</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Production Rate - how to achieve a base production rate of X per minute/second</td>
-        <td>
-          <input type="radio" name="mode" value="rate" checked />
-        </td>
-        </td>
-      </tr>
-      <tr>
-        <td>Building Support - how many buildings are required to support X of given building</td>
-        <td>
-          <input type="radio" name="mode" value="building" />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <div id="calculator_wrapper">
+      <section id="rate_calculation" class="active">
+        <h2>Production Rate Calculator</h2>
+        <form id="rate_form">
+    
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>Resource</th>
+                <th>Amount</th>
+                <th>Time frame</th>
+                <th>Requirements</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <select id="resources"></select>
+                </td>
+                <td>
+                  <input type="text" id="rate_amount" pattern="\d+\.?\d*" value="1" style="width:80px" />
+                </td>
+                <td>
+                  <select id="time_frame">
+                    <option>per second</option>
+                    <option>per minute</option>
+                  </select>
+                </td>
+                <td>
+                  <button type="submit" id="calc_rate">Calculate</button>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  <div id="rate_message">
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <table id="rate_results"></table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+      </section>
 
-  <br />
+      <section id="building_calculation">
+        <h2>Building Support Calculator</h2>
+        <form id="building_form">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>Building</th>
+                <th>Amount</th>
+                <th>Requirements</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <select id="buildings"></select>
+                </td>
+                <td>
+                  <input type="text" id="building_amount" pattern="\d+" value="1" style="width:80px" />
+                </td>
+                <td>
+                  <button type="submit" id="calc_building">Calculate</button>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <div id="building_message">
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <table id="building_results"></table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </section>
+    </div>
 
-  <div id="building_calculation" style="display:none;">
-    <table class="styled-table">
-      <thead>
-        <tr>
-          <th>Building</th>
-          <th>Amount</th>
-          <th>Requirements</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <select id="building"></select>
-          </td>
-          <td>
-            <input type="text" id="building_amount" pattern="\d+" value="1" style="width:80px" />
-          </td>
-          <td>
-            <button id="calc_building">Calculate</button>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3">
-            <div id="building_message">
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3">
-            <table id="building_results"></table>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div id="rate_calculation" style="display:inline;">
-    <table class="styled-table">
-      <thead>
-        <tr>
-          <th>Resource</th>
-          <th>Amount</th>
-          <th>Time frame</th>
-          <th>Requirements</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <select id="resource"></select>
-          </td>
-          <td>
-            <input type="text" id="rate_amount" pattern="\d+\.?\d*" value="1" style="width:80px" />
-          </td>
-          <td>
-            <select id="time_frame">
-              <option>per second</option>
-              <option>per minute</option>
-            </select>
-          </td>
-          <td>
-            <button id="calc_rate">Calculate</button>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="4">
-            <div id="rate_message">
-          </td>
-        </tr>
-        <tr>
-          <td colspan="4">
-            <table id="rate_results"></table>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <script src="./scripts.js"></script>
-</body>
+    
+    <script src="./scripts.js"></script>
+  </body>
 
 </html>

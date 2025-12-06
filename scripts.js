@@ -1,5 +1,5 @@
-var resourcesSelect = document.getElementById("resource");
-var buildingsSelect = document.getElementById("building");
+var resourcesSelect = document.getElementById("resources");
+var buildingsSelect = document.getElementById("buildings");
 
 window.addEventListener('load', (event) => {
 
@@ -20,12 +20,8 @@ window.addEventListener('load', (event) => {
   }
 
   document.getElementsByName("mode").forEach(e => e.addEventListener("change", toggleMode));
-
-  document.getElementById("rate_amount").addEventListener("keypress", event => handleKeyPress(event));
-  document.getElementById("building_amount").addEventListener("keypress", event => handleKeyPress(event));
-
-  document.getElementById("calc_rate").addEventListener("click", calculateResourceRate);
-  document.getElementById("calc_building").addEventListener("click", calculateBuildingRequirements);
+  document.getElementById('rate_form').addEventListener('submit', calculateResourceRate);
+  document.getElementById('building_form').addEventListener('submit', calculateBuildingRequirements);
 
   document.getElementById("rate_amount").focus();
 });
@@ -44,21 +40,13 @@ function handleKeyPress(event) {
   }
 }
 
-function toggleMode() {
-  var modes = document.getElementsByName("mode")
+function toggleMode(ev) {
+  const { target: { value } } = ev;
 
-  var rateTable = document.getElementById("rate_calculation");
-  var productionTable = document.getElementById("building_calculation");
+  document.getElementById("building_calculation").classList.toggle('active');
+  document.getElementById("rate_calculation").classList.toggle('active');
 
-  if (modes[0].checked) {
-    rateTable.style.display = "inline";
-    productionTable.style.display = "none";
-    document.getElementById("rate_amount").focus();
-  } else {
-    productionTable.style.display = "inline";
-    rateTable.style.display = "none";
-    document.getElementById("building_amount").focus();
-  }
+  document.getElementById(`${value}_amount`).focus();
 }
 
 function validateAmount(amount, messageElement, table, message) {
@@ -72,7 +60,9 @@ function validateAmount(amount, messageElement, table, message) {
   return amount.checkValidity();
 }
 
-function calculateBuildingRequirements() {
+function calculateBuildingRequirements(ev) {
+  ev.preventDefault();
+
   var buildingKey = buildingsSelect.options[buildingsSelect.selectedIndex].value;
   var item =  data[buildingKey];
 
@@ -92,7 +82,9 @@ function calculateBuildingRequirements() {
   populateResults(item.output, table, results);
 }
 
-function calculateResourceRate() {
+function calculateResourceRate(ev) {
+  ev.preventDefault();
+
   var resourceKey = resourcesSelect.options[resourcesSelect.selectedIndex].value;
   var item = data[resourceBuildingMap[resourceKey]];
 

@@ -46,3 +46,12 @@ body {
   background: #1b2327;
   color: #F7F8F8;
 }
+
+#building_calculation,
+#rate_calculation {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+} 
